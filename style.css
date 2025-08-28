@@ -466,6 +466,98 @@ body {
   color: #a0aec0;
 }
 
+/* FAQ Page Styles */
+.faq-section {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.faq-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-intro h2 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.faq-intro p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.faq-question {
+  background: #667eea;
+  color: white;
+  padding: 1.5rem;
+  margin: 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background: #5a6fd8;
+}
+
+.faq-answer {
+  padding: 1.5rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.faq-answer ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.faq-answer li {
+  margin-bottom: 0.5rem;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero-content h1 {
@@ -491,5 +583,442 @@ body {
   
   .testimonial-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .faq-intro h2 {
+    font-size: 2rem;
+  }
+  
+  .cta-section h2 {
+    font-size: 2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Benefits Page Styles */
+.benefits-intro {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.intro-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.intro-content h2 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+}
+
+.intro-content p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.benefits-detailed {
+  padding: 4rem 0;
+}
+
+.benefit-category {
+  margin-bottom: 4rem;
+}
+
+.benefit-category h3 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.benefit-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.benefit-text h4 {
+  font-size: 1.5rem;
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.benefit-text p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.benefit-text ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.benefit-text li {
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.benefit-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.scientific-evidence {
+  background: #f8fafc;
+  padding: 4rem 0;
+}
+
+.scientific-evidence h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.evidence-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.evidence-card h4 {
+  color: #667eea;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.evidence-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .benefit-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .intro-content h2 {
+    font-size: 2rem;
+  }
+  
+  .benefit-category h3 {
+    font-size: 1.5rem;
+  }
+  
+  .scientific-evidence h2 {
+    font-size: 2rem;
+  }
+  
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Guide Page Styles */
+.guide-intro {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.learning-path {
+  padding: 4rem 0;
+}
+
+.learning-path h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.path-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.step-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background: #667eea;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.step-card h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  margin: 1rem 0 1rem 0;
+}
+
+.step-card p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.step-card ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.step-card li {
+  color: #4a5568;
+  margin-bottom: 0.3rem;
+}
+
+.practice-tips {
+  background: #f8fafc;
+  padding: 4rem 0;
+}
+
+.practice-tips h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.tip-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.tip-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.tip-card h3 {
+  color: #667eea;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.tip-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.video-tutorials {
+  padding: 4rem 0;
+}
+
+.video-tutorials h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.video-placeholder {
+  position: relative;
+  background: #e8f4f8;
+  height: 225px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(102, 126, 234, 0.9);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  background: #667eea;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-card h3 {
+  color: #2d3748;
+  font-size: 1.2rem;
+  margin: 1rem;
+}
+
+.video-card p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0 1rem 1rem 1rem;
+}
+
+.common-mistakes {
+  background: #f8fafc;
+  padding: 4rem 0;
+}
+
+.common-mistakes h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.mistakes-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mistake-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.mistake-item h3 {
+  color: #e53e3e;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.mistake-item p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .path-steps {
+    grid-template-columns: 1fr;
+  }
+  
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .learning-path h2,
+  .practice-tips h2,
+  .video-tutorials h2,
+  .common-mistakes h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Tips Page Styles */
+.tips-intro {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.common-questions {
+  padding: 4rem 0;
+}
+
+.common-questions h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 3rem;
+}
+
+.questions-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.question-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.question-item h3 {
+  color: #667eea;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.question-item p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .common-questions h2 {
+    font-size: 2rem;
   }
 } 
