@@ -43,10 +43,44 @@
       <div class="nav-brand">八段锦学习平台</div>
       <div class="nav-links">
         <a href="index.html">首页</a>
-        <a href="steps.html">八段锦动作详解</a>
+        <a href="steps.html" class="active">八段锦动作详解</a>
         <a href="tips.html">八段锦入门指南</a>
         <a href="faq.html">常见问题</a>
+        <a href="game.html">记忆游戏</a>
+        <a href="sitemap.html">网站地图</a>
         <a href="#" class="cta-btn">开始学习</a>
+      </div>
+      <div class="header-actions">
+        <button id="bookmarkBtn" class="bookmark-btn" title="收藏此页面">
+          <span class="bookmark-icon">🔖</span>
+          <span class="bookmark-text">收藏</span>
+        </button>
+        <div class="social-share">
+          <button class="share-btn" title="分享此页面">
+            <span class="share-icon">📤</span>
+            <span class="share-text">分享</span>
+          </button>
+          <div class="share-dropdown">
+            <a href="#" class="share-link wechat" data-platform="wechat">
+              <span class="share-icon">💬</span> 微信
+            </a>
+            <a href="#" class="share-link weibo" data-platform="weibo">
+              <span class="share-icon">📱</span> 微博
+            </a>
+            <a href="#" class="share-link qq" data-platform="qq">
+              <span class="share-icon">🐧</span> QQ
+            </a>
+            <a href="#" class="share-link facebook" data-platform="facebook">
+              <span class="share-icon">📘</span> Facebook
+            </a>
+            <a href="#" class="share-link twitter" data-platform="twitter">
+              <span class="share-icon">🐦</span> Twitter
+            </a>
+            <a href="#" class="share-link email" data-platform="email">
+              <span class="share-icon">📧</span> 邮箱
+            </a>
+          </div>
+        </div>
       </div>
     </nav>
     <div class="page-hero">
@@ -58,23 +92,30 @@
   </header>
 
   <main>
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+      <div class="container">
+        <a href="index.html">首页</a> > <a href="steps.html">八段锦动作详解</a> > <span>八个动作教学</span>
+      </div>
+    </nav>
+
     <section class="forms-intro">
       <div class="container">
         <div class="intro-content">
-          <h2>Complete Practice Sequence</h2>
-          <p>Each form in Ba Duan Jin targets specific organs and energy meridians. Practice them in sequence for maximum benefit, focusing on smooth transitions and natural breathing.</p>
+          <h2>八段锦完整练习序列</h2>
+          <p>八段锦的每个动作都针对特定的脏腑和经络。按顺序练习可获得最佳效果，注重动作的连贯性和自然呼吸。</p>
           <div class="practice-tips">
             <div class="tip">
               <span class="tip-icon">🧘</span>
-              <p>Start with 3-5 repetitions of each form</p>
+              <p>每个动作练习3-5次</p>
             </div>
             <div class="tip">
               <span class="tip-icon">⏱️</span>
-              <p>Hold each position for 5-10 seconds</p>
+              <p>每个姿势保持5-10秒</p>
             </div>
             <div class="tip">
               <span class="tip-icon">🌬️</span>
-              <p>Coordinate movement with natural breathing</p>
+              <p>动作与自然呼吸相协调</p>
             </div>
           </div>
         </div>
@@ -87,30 +128,30 @@
           <div class="form-number">01</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Two Hands Hold Up the Heavens</h3>
-              <p class="form-subtitle">Shuang Shou Tuo Tian Li San Jiao</p>
-              <p class="form-description">This opening form regulates the triple heater (san jiao) and promotes overall qi circulation. The upward stretching motion helps align the spine and opens the chest.</p>
+              <h3>两手托天理三焦</h3>
+              <p class="form-subtitle">调节三焦，疏通经络</p>
+              <p class="form-description">这是八段锦的开式动作，主要作用是调理三焦，促进全身气血循环。向上的伸展动作有助于脊柱对齐，打开胸腔。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Improves posture and spinal alignment</li>
-                  <li>Enhances respiratory function</li>
-                  <li>Regulates internal organ function</li>
-                  <li>Reduces shoulder and neck tension</li>
+                  <li>改善体态和脊柱对齐</li>
+                  <li>增强呼吸功能</li>
+                  <li>调节内脏器官功能</li>
+                  <li>缓解肩颈紧张</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Stand with feet shoulder-width apart</li>
-                  <li>Interlace fingers and raise hands above head</li>
-                  <li>Turn palms upward as if holding up the sky</li>
-                  <li>Gently stretch upward, then lower arms to sides</li>
+                  <li>双脚与肩同宽站立</li>
+                  <li>双手交叉，举过头顶</li>
+                  <li>掌心向上，如托天状</li>
+                  <li>轻柔向上伸展，然后放下双臂</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+1%3A+Hold+Up+Heavens" alt="Two Hands Hold Up the Heavens">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第一式：两手托天理三焦" alt="两手托天理三焦" loading="lazy">
             </div>
           </div>
         </div>
@@ -119,30 +160,30 @@
           <div class="form-number">02</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Drawing the Bow to Shoot an Eagle</h3>
-              <p class="form-subtitle">Zuo You Kai Gong Si She Diao</p>
-              <p class="form-description">This form strengthens the arms and shoulders while improving focus and concentration. The bow-drawing motion enhances lung capacity and chest expansion.</p>
+              <h3>左右开弓似射雕</h3>
+              <p class="form-subtitle">强健臂膀，增强肺活量</p>
+              <p class="form-description">这个动作主要锻炼手臂和肩膀，同时提高专注力和集中力。拉弓的动作能增强肺活量和胸部扩张。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Strengthens arms, shoulders, and chest</li>
-                  <li>Improves lung capacity and breathing</li>
-                  <li>Enhances focus and mental clarity</li>
-                  <li>Regulates kidney and lung meridians</li>
+                  <li>强健手臂、肩膀和胸部</li>
+                  <li>提高肺活量和呼吸功能</li>
+                  <li>增强专注力和精神集中</li>
+                  <li>调节肾经和肺经</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Stand in horse stance with arms crossed</li>
-                  <li>Draw left arm back as if pulling a bowstring</li>
-                  <li>Extend right arm forward, pointing index finger</li>
-                  <li>Hold briefly, then switch sides</li>
+                  <li>马步站立，双臂交叉</li>
+                  <li>左臂向后拉，如拉弓弦</li>
+                  <li>右臂向前伸展，食指指向目标</li>
+                  <li>保持片刻，然后换边练习</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+2%3A+Drawing+Bow" alt="Drawing the Bow to Shoot an Eagle">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第二式：左右开弓似射雕" alt="左右开弓似射雕" loading="lazy">
             </div>
           </div>
         </div>
@@ -151,30 +192,30 @@
           <div class="form-number">03</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Separate Heaven and Earth</h3>
-              <p class="form-subtitle">Tiao Li Pi Wei Xu Dan Ju</p>
-              <p class="form-description">This form regulates the spleen and stomach, improving digestion and metabolism. The opposing movements help balance the body's energy systems.</p>
+              <h3>调理脾胃须单举</h3>
+              <p class="form-subtitle">调理脾胃，改善消化</p>
+              <p class="form-description">这个动作调节脾胃，改善消化和新陈代谢。相反的动作有助于平衡身体的能量系统。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Improves digestive function</li>
-                  <li>Regulates spleen and stomach qi</li>
-                  <li>Enhances metabolic processes</li>
-                  <li>Balances upper and lower body energy</li>
+                  <li>改善消化功能</li>
+                  <li>调节脾胃之气</li>
+                  <li>增强新陈代谢过程</li>
+                  <li>平衡上下身能量</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Raise one hand overhead, palm facing up</li>
-                  <li>Press other hand downward, palm facing down</li>
-                  <li>Feel the stretch through your torso</li>
-                  <li>Switch hand positions and repeat</li>
+                  <li>一手举过头顶，掌心向上</li>
+                  <li>另一手向下按，掌心向下</li>
+                  <li>感受躯干的拉伸</li>
+                  <li>交换手的位置并重复</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+3%3A+Heaven+Earth" alt="Separate Heaven and Earth">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第三式：调理脾胃须单举" alt="调理脾胃须单举" loading="lazy">
             </div>
           </div>
         </div>
@@ -183,30 +224,30 @@
           <div class="form-number">04</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Wise Owl Gazes Backwards</h3>
-              <p class="form-subtitle">Wu Lao Qi Shang Wang Hou Qiao</p>
-              <p class="form-description">This form addresses the five weaknesses and seven injuries by promoting flexibility in the neck and spine while calming the nervous system.</p>
+              <h3>五劳七伤向后瞧</h3>
+              <p class="form-subtitle">缓解疲劳，增强灵活性</p>
+              <p class="form-description">这个动作通过促进颈部和脊柱的灵活性来应对五劳七伤，同时安抚神经系统。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Improves neck and spine flexibility</li>
-                  <li>Reduces stress and anxiety</li>
-                  <li>Enhances nervous system function</li>
-                  <li>Promotes mental clarity and focus</li>
+                  <li>改善颈部和脊柱灵活性</li>
+                  <li>减少压力和焦虑</li>
+                  <li>增强神经系统功能</li>
+                  <li>促进精神清晰和专注</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Stand with hands on hips</li>
-                  <li>Slowly turn head to look over left shoulder</li>
-                  <li>Keep shoulders relaxed and level</li>
-                  <li>Return to center, then turn to right</li>
+                  <li>双手叉腰站立</li>
+                  <li>慢慢转头向左肩后方看</li>
+                  <li>保持肩膀放松和水平</li>
+                  <li>回到中心，然后转向右侧</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+4%3A+Wise+Owl" alt="Wise Owl Gazes Backwards">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第四式：五劳七伤向后瞧" alt="五劳七伤向后瞧" loading="lazy">
             </div>
           </div>
         </div>
@@ -215,30 +256,30 @@
           <div class="form-number">05</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Sway the Head and Shake the Tail</h3>
-              <p class="form-subtitle">Yao Tou Bai Wei Qu Xin Huo</p>
-              <p class="form-description">This form helps clear heart fire and reduce emotional stress. The swaying motion promotes flexibility throughout the spine and releases tension.</p>
+              <h3>摇头摆尾去心火</h3>
+              <p class="form-subtitle">清除心火，缓解压力</p>
+              <p class="form-description">这个动作有助于清除心火，减少情绪压力。摇摆的动作促进整个脊柱的灵活性，释放紧张。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Reduces emotional stress and anxiety</li>
-                  <li>Improves spinal flexibility</li>
-                  <li>Regulates heart and kidney energy</li>
-                  <li>Promotes emotional balance</li>
+                  <li>减少情绪压力和焦虑</li>
+                  <li>改善脊柱灵活性</li>
+                  <li>调节心肾能量</li>
+                  <li>促进情绪平衡</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Stand in wide horse stance</li>
-                  <li>Place hands on knees</li>
-                  <li>Sway upper body in circular motions</li>
-                  <li>Keep movements smooth and controlled</li>
+                  <li>马步站立</li>
+                  <li>双手放在膝盖上</li>
+                  <li>上身做圆形摇摆动作</li>
+                  <li>保持动作流畅和受控</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+5%3A+Sway+Head" alt="Sway the Head and Shake the Tail">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第五式：摇头摆尾去心火" alt="摇头摆尾去心火" loading="lazy">
             </div>
           </div>
         </div>
@@ -247,9 +288,9 @@
           <div class="form-number">06</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Two Hands Hold the Feet</h3>
-              <p class="form-subtitle">Liang Shou Pan Zu Gu Shen Yao</p>
-              <p class="form-description">This form strengthens the kidneys and lower back while improving flexibility in the legs and spine. It's particularly beneficial for kidney and bladder health.</p>
+              <h3>两手攀足固肾腰</h3>
+              <p class="form-subtitle">强肾固腰，增强柔韧性</p>
+              <p class="form-description">这个动作强健肾脏和腰部，同时改善腿部和脊柱的柔韧性。对肾脏和膀胱健康特别有益。</p>
               <div class="form-benefits">
                 <h4>Benefits:</h4>
                 <ul>
@@ -311,30 +352,30 @@
           <div class="form-number">08</div>
           <div class="form-content">
             <div class="form-text">
-              <h3>Bouncing on the Toes</h3>
-              <p class="form-subtitle">Bei Hou Qi Dian Bai Bing Xiao</p>
-              <p class="form-description">This closing form helps eliminate diseases and restore balance. The bouncing motion stimulates all meridians and promotes overall health.</p>
+              <h3>背后七颠百病消</h3>
+              <p class="form-subtitle">消除百病，恢复平衡</p>
+              <p class="form-description">这是收式动作，有助于消除疾病，恢复平衡。颠簸的动作刺激所有经络，促进整体健康。</p>
               <div class="form-benefits">
-                <h4>Benefits:</h4>
+                <h4>功效：</h4>
                 <ul>
-                  <li>Stimulates all meridian points</li>
-                  <li>Promotes overall health and vitality</li>
-                  <li>Improves balance and coordination</li>
-                  <li>Integrates the benefits of all previous forms</li>
+                  <li>刺激所有经络穴位</li>
+                  <li>促进整体健康和活力</li>
+                  <li>改善平衡和协调性</li>
+                  <li>整合前面所有动作的益处</li>
                 </ul>
               </div>
               <div class="form-instructions">
-                <h4>Instructions:</h4>
+                <h4>动作要领：</h4>
                 <ol>
-                  <li>Stand with feet parallel</li>
-                  <li>Rise up on toes, then drop heels</li>
-                  <li>Let the bounce travel through your body</li>
-                  <li>Repeat 7-10 times to conclude practice</li>
+                  <li>双脚平行站立</li>
+                  <li>踮起脚尖，然后放下脚跟</li>
+                  <li>让颠簸感传遍全身</li>
+                  <li>重复7-10次结束练习</li>
                 </ol>
               </div>
             </div>
             <div class="form-image">
-              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=Form+8%3A+Bouncing+Toes" alt="Bouncing on the Toes">
+              <img src="https://via.placeholder.com/400x300/e8f4f8/2c5282?text=第八式：背后七颠百病消" alt="背后七颠百病消" loading="lazy">
             </div>
           </div>
         </div>
@@ -343,11 +384,11 @@
 
     <section class="practice-guide">
       <div class="container">
-        <h2>Ready to Start Your Practice?</h2>
-        <p>Remember: consistency is more important than perfection. Start with what feels comfortable and gradually build your practice.</p>
+        <h2>准备开始练习了吗？</h2>
+        <p>记住：坚持比完美更重要。从感觉舒适的动作开始，逐渐建立你的练习习惯。</p>
         <div class="guide-actions">
-          <a href="tips.html" class="btn-primary">Get Practice Tips</a>
-          <a href="index.html" class="btn-secondary">Back to Home</a>
+          <a href="tips.html" class="btn-primary">获取练习技巧</a>
+          <a href="index.html" class="btn-secondary">返回首页</a>
         </div>
       </div>
     </section>
@@ -371,8 +412,15 @@
           <a href="#">FAQ</a>
         </div>
       </div>
+      
+      <!-- Page Summary Section -->
+      <div class="page-summary">
+        <h4>页面概要</h4>
+        <p>这是八段锦动作详解页面，详细介绍了传统八段锦的八个动作：两手托天理三焦、左右开弓似射雕、调理脾胃须单举、五劳七伤向后瞧、摇头摆尾去心火、两手攀足固肾腰、攒拳怒目增气力、背后七颠百病消。每个动作都包含详细的功效说明、动作要领和练习指导，帮助学习者正确掌握八段锦的标准动作，获得最佳的健身效果。</p>
+      </div>
+      
       <div class="footer-bottom">
-        <p>&copy; 2024 Ba Duan Jin Learning Platform. Empowering wellness through ancient wisdom.</p>
+        <p>&copy; 2024 八段锦学习平台. 传承千年智慧，推广传统健身气功。</p>
       </div>
     </div>
   </footer>

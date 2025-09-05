@@ -6,3 +6,4 @@ Sitemap: https://baduanjin.online/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
+

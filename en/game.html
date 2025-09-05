@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Ba Duan Jin Memory Game - Interactive Qigong Learning | Ba Duan Jin Online</title>
+  <meta name="description" content="Play our fun Ba Duan Jin memory game! Learn the eight traditional Chinese Qigong movements while having fun. Interactive educational game for Ba Duan Jin enthusiasts.">
+  <meta name="keywords" content="Ba Duan Jin game, Qigong game, Chinese exercise game, Ba Duan Jin memory game, interactive learning, educational game">
+  <meta name="author" content="Ba Duan Jin Learning Platform">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://baduanjin.online/en/game.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Ba Duan Jin Memory Game - Interactive Qigong Learning">
+  <meta property="og:description" content="Play our fun Ba Duan Jin memory game! Learn the eight traditional Chinese Qigong movements while having fun.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://baduanjin.online/en/game.html">
+  <meta property="og:image" content="https://baduanjin.online/images/ba-duan-jin-game.jpg">
+  <meta property="og:site_name" content="Ba Duan Jin Learning Platform">
+  <meta property="og:locale" content="en_US">
+  
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    .game-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .game-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .game-title {
+      font-size: 2.5rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .game-description {
+      color: #4a5568;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .game-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 10px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .stat-label {
+      color: #4a5568;
+      font-size: 0.9rem;
+    }
+    
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .game-card {
+      aspect-ratio: 1;
+      background: #e8f4f8;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .game-card.flipped {
+      background: white;
+      border-color: #667eea;
+    }
+    
+    .game-card.matched {
+      background: #38a169;
+      color: white;
+    }
+    
+    .card-content {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .card-number {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-name {
+      font-size: 0.7rem;
+      line-height: 1.2;
+    }
+    
+    .game-controls {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .game-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0 0.5rem;
+    }
+    
+    .game-btn:hover {
+      background: #5a6fd8;
+      transform: translateY(-2px);
+    }
+    
+    .game-btn:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .game-message {
+      text-align: center;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      min-height: 2rem;
+    }
+    
+    .success-message {
+      color: #38a169;
+    }
+    
+    .info-message {
+      color: #667eea;
+    }
+    
+    .game-instructions {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    
+    .instructions-title {
+      font-size: 1.3rem;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .instructions-list {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    
+    .instructions-list li {
+      margin-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .game-board {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+      
+      .game-title {
+        font-size: 2rem;
+      }
+      
+      .card-content {
+        font-size: 0.7rem;
+      }
+      
+      .card-number {
+        font-size: 1.2rem;
+      }
+      
+      .card-name {
+        font-size: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <nav class="navbar">
+      <div class="nav-brand">Ba Duan Jin Qigong</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="steps.html">Ba Duan Jin Steps</a>
+        <a href="tutorial.html">Ba Duan Jin Tutorial</a>
+        <a href="benefits.html">Ba Duan Jin Benefits</a>
+        <a href="faq.html">FAQ</a>
+        <a href="game.html" class="active">Memory Game</a>
+        <a href="../" class="language-switch">中文</a>
+      </div>
+    </nav>
+    <div class="page-hero">
+      <div class="container">
+        <h1>Ba Duan Jin Memory Game</h1>
+        <p>Learn the eight traditional movements while having fun!</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="game-container">
+        <div class="game-header">
+          <h2 class="game-title">🧘‍♀️ Ba Duan Jin Memory Challenge</h2>
+          <p class="game-description">
+            Test your memory and learn the eight traditional Ba Duan Jin movements! 
+            Match the movement numbers with their names to complete the sequence.
+          </p>
+        </div>
+
+        <div class="game-instructions">
+          <h3 class="instructions-title">How to Play:</h3>
+          <ul class="instructions-list">
+            <li>Click on cards to flip them and reveal the Ba Duan Jin movements</li>
+            <li>Match the movement number with its corresponding name</li>
+            <li>Complete all 8 pairs to win the game</li>
+            <li>Try to finish in as few moves as possible for a better score!</li>
+          </ul>
+        </div>
+
+        <div class="game-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="moves">0</div>
+            <div class="stat-label">Moves</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="matches">0</div>
+            <div class="stat-label">Matches</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="time">00:00</div>
+            <div class="stat-label">Time</div>
+          </div>
+        </div>
+
+        <div class="game-message" id="gameMessage">
+          Click "Start Game" to begin your Ba Duan Jin memory challenge!
+        </div>
+
+        <div class="game-controls">
+          <button class="game-btn" id="startBtn">Start Game</button>
+          <button class="game-btn" id="resetBtn" disabled>Reset Game</button>
+        </div>
+
+        <div class="game-board" id="gameBoard">
+          <!-- Game cards will be generated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Ba Duan Jin Qigong</h4>
+          <p>Your gateway to ancient Chinese wellness wisdom and Traditional Chinese Medicine exercises.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="steps.html">Ba Duan Jin Steps</a>
+          <a href="tutorial.html">Ba Duan Jin Tutorial</a>
+          <a href="benefits.html">Ba Duan Jin Benefits</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <a href="beginners.html">Ba Duan Jin for Beginners</a>
+          <a href="seniors.html">Ba Duan Jin for Seniors</a>
+          <a href="weight-loss.html">Ba Duan Jin for Weight Loss</a>
+          <a href="sleep.html">Ba Duan Jin for Sleep</a>
+        </div>
+      </div>
+      
+      <!-- Page Summary Section -->
+      <div class="page-summary">
+        <h4>Page Summary</h4>
+        <p>This interactive Ba Duan Jin Memory Game page offers an engaging way to learn the eight traditional Chinese Qigong movements. The game combines entertainment with education, allowing players to match movement numbers with their corresponding names while tracking their progress through moves, matches, and time. Perfect for users who want to reinforce their knowledge of Ba Duan Jin movements in a fun, interactive format. The game includes clear instructions, real-time statistics, and responsive design for optimal play on all devices.</p>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Ba Duan Jin Learning Platform. Empowering wellness through ancient Chinese exercise wisdom.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    class BaDuanJinMemoryGame {
+      constructor() {
+        this.movements = [
+          { number: 1, name: "Two Hands Hold Up the Heavens", short: "Hold Up Heavens" },
+          { number: 2, name: "Drawing the Bow to Shoot an Eagle", short: "Shoot Eagle" },
+          { number: 3, name: "Regulate Spleen and Stomach", short: "Regulate Spleen" },
+          { number: 4, name: "Five Diseases and Seven Injuries", short: "Five Diseases" },
+          { number: 5, name: "Shake Head and Wag Tail", short: "Shake Head" },
+          { number: 6, name: "Two Hands Clasp Feet", short: "Clasp Feet" },
+          { number: 7, name: "Clench Fists and Glare", short: "Clench Fists" },
+          { number: 8, name: "Seven Jolts of the Back", short: "Seven Jolts" }
+        ];
+        
+        this.cards = [];
+        this.flippedCards = [];
+        this.matchedPairs = 0;
+        this.moves = 0;
+        this.gameStarted = false;
+        this.gameTime = 0;
+        this.timer = null;
+        
+        this.initializeGame();
+      }
+      
+      initializeGame() {
+        this.createCards();
+        this.shuffleCards();
+        this.renderBoard();
+        this.bindEvents();
+      }
+      
+      createCards() {
+        this.cards = [];
+        
+        // Create number cards
+        this.movements.forEach(movement => {
+          this.cards.push({
+            id: `num-${movement.number}`,
+            type: 'number',
+            content: movement.number,
+            pair: movement.name,
+            flipped: false,
+            matched: false
+          });
+        });
+        
+        // Create name cards
+        this.movements.forEach(movement => {
+          this.cards.push({
+            id: `name-${movement.number}`,
+            type: 'name',
+            content: movement.short,
+            pair: movement.number,
+            flipped: false,
+            matched: false
+          });
+        });
+      }
+      
+      shuffleCards() {
+        for (let i = this.cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
+      }
+      
+      renderBoard() {
+        const board = document.getElementById('gameBoard');
+        board.innerHTML = '';
+        
+        this.cards.forEach(card => {
+          const cardElement = document.createElement('div');
+          cardElement.className = 'game-card';
+          cardElement.dataset.cardId = card.id;
+          
+          const cardContent = document.createElement('div');
+          cardContent.className = 'card-content';
+          
+          if (card.flipped || card.matched) {
+            cardContent.innerHTML = `
+              <div class="card-number">${card.type === 'number' ? card.content : ''}</div>
+              <div class="card-name">${card.type === 'name' ? card.content : ''}</div>
+            `;
+            cardElement.classList.add('flipped');
+          } else {
+            cardContent.innerHTML = '<div class="card-number">?</div>';
+          }
+          
+          if (card.matched) {
+            cardElement.classList.add('matched');
+          }
+          
+          cardElement.appendChild(cardContent);
+          board.appendChild(cardElement);
+        });
+      }
+      
+      bindEvents() {
+        document.getElementById('startBtn').addEventListener('click', () => this.startGame());
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
+        
+        document.getElementById('gameBoard').addEventListener('click', (e) => {
+          const cardElement = e.target.closest('.game-card');
+          if (cardElement && !this.gameStarted) return;
+          
+          if (cardElement) {
+            const cardId = cardElement.dataset.cardId;
+            this.flipCard(cardId);
+          }
+        });
+      }
+      
+      startGame() {
+        this.gameStarted = true;
+        this.startTimer();
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('resetBtn').disabled = false;
+        document.getElementById('gameMessage').textContent = 'Game started! Find matching pairs!';
+        document.getElementById('gameMessage').className = 'game-message info-message';
+      }
+      
+      resetGame() {
+        this.matchedPairs = 0;
+        this.moves = 0;
+        this.gameStarted = false;
+        this.gameTime = 0;
+        this.flippedCards = [];
+        
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+        
+        this.cards.forEach(card => {
+          card.flipped = false;
+          card.matched = false;
+        });
+        
+        this.shuffleCards();
+        this.renderBoard();
+        this.updateStats();
+        
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('resetBtn').disabled = true;
+        document.getElementById('gameMessage').textContent = 'Click "Start Game" to begin your Ba Duan Jin memory challenge!';
+        document.getElementById('gameMessage').className = 'game-message';
+      }
+      
+      flipCard(cardId) {
+        if (!this.gameStarted) return;
+        
+        const card = this.cards.find(c => c.id === cardId);
+        if (!card || card.flipped || card.matched) return;
+        
+        if (this.flippedCards.length >= 2) return;
+        
+        card.flipped = true;
+        this.flippedCards.push(card);
+        this.renderBoard();
+        
+        if (this.flippedCards.length === 2) {
+          this.moves++;
+          this.updateStats();
+          this.checkMatch();
+        }
+      }
+      
+      checkMatch() {
+        const [card1, card2] = this.flippedCards;
+        
+        setTimeout(() => {
+          if (card1.pair === card2.content || card2.pair === card1.content) {
+            // Match found
+            card1.matched = true;
+            card2.matched = true;
+            this.matchedPairs++;
+            
+            document.getElementById('gameMessage').textContent = 'Great match! Keep going!';
+            document.getElementById('gameMessage').className = 'game-message success-message';
+            
+            if (this.matchedPairs === 8) {
+              this.endGame();
+            }
+          } else {
+            // No match
+            card1.flipped = false;
+            card2.flipped = false;
+            document.getElementById('gameMessage').textContent = 'No match. Try again!';
+            document.getElementById('gameMessage').className = 'game-message';
+          }
+          
+          this.flippedCards = [];
+          this.renderBoard();
+        }, 1000);
+      }
+      
+      startTimer() {
+        this.timer = setInterval(() => {
+          this.gameTime++;
+          this.updateStats();
+        }, 1000);
+      }
+      
+      updateStats() {
+        document.getElementById('moves').textContent = this.moves;
+        document.getElementById('matches').textContent = this.matchedPairs;
+        
+        const minutes = Math.floor(this.gameTime / 60);
+        const seconds = this.gameTime % 60;
+        document.getElementById('time').textContent = 
+          `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+      
+      endGame() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+        
+        const minutes = Math.floor(this.gameTime / 60);
+        const seconds = this.gameTime % 60;
+        
+        document.getElementById('gameMessage').innerHTML = `
+          🎉 Congratulations! You completed the Ba Duan Jin Memory Challenge!<br>
+          Time: ${minutes}:${seconds.toString().padStart(2, '0')} | Moves: ${this.moves}
+        `;
+        document.getElementById('gameMessage').className = 'game-message success-message';
+        
+        this.gameStarted = false;
+        document.getElementById('startBtn').disabled = false;
+      }
+    }
+    
+    // Initialize the game when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new BaDuanJinMemoryGame();
+    });
+  </script>
+</body>
+</html>

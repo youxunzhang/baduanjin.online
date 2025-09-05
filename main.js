@@ -159,6 +159,116 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Bookmark functionality
+const bookmarkBtn = document.getElementById('bookmarkBtn');
+if (bookmarkBtn) {
+  bookmarkBtn.addEventListener('click', () => {
+    const currentUrl = window.location.href;
+    const currentTitle = document.title;
+    
+    if (bookmarkBtn.classList.contains('bookmarked')) {
+      // Remove bookmark
+      bookmarkBtn.classList.remove('bookmarked');
+      bookmarkBtn.querySelector('.bookmark-text').textContent = 'Bookmark';
+      localStorage.removeItem(`bookmark_${currentUrl}`);
+      showNotification('Bookmark removed!', 'info');
+    } else {
+      // Add bookmark
+      bookmarkBtn.classList.add('bookmarked');
+      bookmarkBtn.querySelector('.bookmark-text').textContent = 'Bookmarked';
+      localStorage.setItem(`bookmark_${currentUrl}`, JSON.stringify({
+        url: currentUrl,
+        title: currentTitle,
+        timestamp: new Date().toISOString()
+      }));
+      showNotification('Page bookmarked!', 'success');
+    }
+  });
+  
+  // Check if page is already bookmarked
+  const currentUrl = window.location.href;
+  if (localStorage.getItem(`bookmark_${currentUrl}`)) {
+    bookmarkBtn.classList.add('bookmarked');
+    bookmarkBtn.querySelector('.bookmark-text').textContent = 'Bookmarked';
+  }
+}
+
+// Social sharing functionality
+const shareLinks = document.querySelectorAll('.share-link');
+shareLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const platform = link.dataset.platform;
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    const description = encodeURIComponent(document.querySelector('meta[name="description"]')?.content || '');
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        break;
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${title}%20${url}`;
+        break;
+      case 'wechat':
+        // 微信分享需要特殊处理，这里显示二维码或提示
+        showNotification('请复制链接分享到微信', 'info');
+        navigator.clipboard.writeText(window.location.href);
+        return;
+      case 'weibo':
+        shareUrl = `https://service.weibo.com/share/share.php?url=${url}&title=${title}`;
+        break;
+      case 'qq':
+        shareUrl = `https://connect.qq.com/widget/shareqq/index.html?url=${url}&title=${title}&summary=${description}`;
+        break;
+      case 'email':
+        shareUrl = `mailto:?subject=${title}&body=${description}%0A%0A${url}`;
+        break;
+    }
+    
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      showNotification(`Sharing to ${platform.charAt(0).toUpperCase() + platform.slice(1)}!`, 'info');
+    }
+  });
+});
+
+// Notification system
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? '#38a169' : type === 'error' ? '#e53e3e' : '#667eea'};
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    z-index: 10000;
+    animation: slideIn 0.5s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.5s ease';
+    setTimeout(() => {
+      notification.remove();
+    }, 500);
+  }, 3000);
+}
+
 // 添加CSS动画
 const style = document.createElement('style');
 style.textContent = `
@@ -170,6 +280,17 @@ style.textContent = `
     to {
       transform: translateX(0);
       opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
     }
   }
   

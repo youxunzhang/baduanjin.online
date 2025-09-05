@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>八段锦记忆游戏 - 互动式气功学习 | 八段锦学习平台</title>
+  <meta name="description" content="玩我们的趣味八段锦记忆游戏！在娱乐中学习八个传统中国气功动作。适合八段锦爱好者的互动教育游戏。">
+  <meta name="keywords" content="八段锦游戏,气功游戏,中国功法游戏,八段锦记忆游戏,互动学习,教育游戏">
+  <meta name="author" content="八段锦学习平台">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://baduanjin.online/game.html">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="八段锦记忆游戏 - 互动式气功学习">
+  <meta property="og:description" content="玩我们的趣味八段锦记忆游戏！在娱乐中学习八个传统中国气功动作。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://baduanjin.online/game.html">
+  <meta property="og:image" content="https://baduanjin.online/images/ba-duan-jin-game.jpg">
+  <meta property="og:site_name" content="八段锦学习平台">
+  <meta property="og:locale" content="zh_CN">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    .game-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .game-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .game-title {
+      font-size: 2.5rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .game-description {
+      color: #4a5568;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .game-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 10px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .stat-label {
+      color: #4a5568;
+      font-size: 0.9rem;
+    }
+    
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .game-card {
+      aspect-ratio: 1;
+      background: #e8f4f8;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .game-card.flipped {
+      background: white;
+      border-color: #667eea;
+    }
+    
+    .game-card.matched {
+      background: #38a169;
+      color: white;
+    }
+    
+    .card-content {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .card-number {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-name {
+      font-size: 0.7rem;
+      line-height: 1.2;
+    }
+    
+    .game-controls {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .game-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0 0.5rem;
+    }
+    
+    .game-btn:hover {
+      background: #5a6fd8;
+      transform: translateY(-2px);
+    }
+    
+    .game-btn:disabled {
+      background: #a0aec0;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .game-message {
+      text-align: center;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      min-height: 2rem;
+    }
+    
+    .success-message {
+      color: #38a169;
+    }
+    
+    .info-message {
+      color: #667eea;
+    }
+    
+    .game-instructions {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    
+    .instructions-title {
+      font-size: 1.3rem;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+    
+    .instructions-list {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    
+    .instructions-list li {
+      margin-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .game-board {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+      
+      .game-title {
+        font-size: 2rem;
+      }
+      
+      .card-content {
+        font-size: 0.7rem;
+      }
+      
+      .card-number {
+        font-size: 1.2rem;
+      }
+      
+      .card-name {
+        font-size: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <nav class="navbar">
+      <div class="nav-brand">八段锦学习平台</div>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="steps.html">八段锦动作详解</a>
+        <a href="tips.html">八段锦入门指南</a>
+        <a href="faq.html">常见问题</a>
+        <a href="game.html" class="active">记忆游戏</a>
+        <a href="en/game.html" class="language-switch">English</a>
+      </div>
+    </nav>
+    <div class="page-hero">
+      <div class="container">
+        <h1>八段锦记忆游戏</h1>
+        <p>在娱乐中学习八个传统动作！</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="game-container">
+        <div class="game-header">
+          <h2 class="game-title">🧘‍♀️ 八段锦记忆挑战</h2>
+          <p class="game-description">
+            测试你的记忆力，学习八个传统八段锦动作！
+            将动作编号与名称配对，完成整个序列。
+          </p>
+        </div>
+
+        <div class="game-instructions">
+          <h3 class="instructions-title">游戏规则：</h3>
+          <ul class="instructions-list">
+            <li>点击卡片翻转，显示八段锦动作</li>
+            <li>将动作编号与对应的名称配对</li>
+            <li>完成所有8对配对即可获胜</li>
+            <li>尽量用最少的步数完成，获得更好的分数！</li>
+          </ul>
+        </div>
+
+        <div class="game-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="moves">0</div>
+            <div class="stat-label">步数</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="matches">0</div>
+            <div class="stat-label">配对</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="time">00:00</div>
+            <div class="stat-label">时间</div>
+          </div>
+        </div>
+
+        <div class="game-message" id="gameMessage">
+          点击"开始游戏"开始你的八段锦记忆挑战！
+        </div>
+
+        <div class="game-controls">
+          <button class="game-btn" id="startBtn">开始游戏</button>
+          <button class="game-btn" id="resetBtn" disabled>重新开始</button>
+        </div>
+
+        <div class="game-board" id="gameBoard">
+          <!-- 游戏卡片将由JavaScript生成 -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>八段锦学习平台</h4>
+          <p>传承千年中医养生智慧，推广传统健身气功。</p>
+        </div>
+        <div class="footer-section">
+          <h4>快速链接</h4>
+          <a href="steps.html">八段锦动作详解</a>
+          <a href="tips.html">八段锦入门指南</a>
+          <a href="faq.html">常见问题</a>
+        </div>
+        <div class="footer-section">
+          <h4>学习资源</h4>
+          <a href="benefits.html">八段锦好处</a>
+          <a href="guide.html">八段锦教学</a>
+        </div>
+      </div>
+      
+      <!-- Page Summary Section -->
+      <div class="page-summary">
+        <h4>页面概要</h4>
+        <p>这个互动式八段锦记忆游戏页面提供了一种有趣的方式来学习八个传统中国气功动作。游戏结合了娱乐性和教育性，让玩家在配对动作编号与对应名称的同时，跟踪他们的进度，包括步数、配对数和时间。非常适合想要以有趣、互动的方式巩固八段锦动作知识的用户。游戏包含清晰的说明、实时统计和响应式设计，确保在所有设备上都能获得最佳的游戏体验。</p>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 八段锦学习平台. 传承千年智慧，推广传统健身气功。</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    class BaDuanJinMemoryGame {
+      constructor() {
+        this.movements = [
+          { number: 1, name: "两手托天理三焦", short: "托天理三焦" },
+          { number: 2, name: "左右开弓似射雕", short: "开弓射雕" },
+          { number: 3, name: "调理脾胃须单举", short: "调理脾胃" },
+          { number: 4, name: "五劳七伤向后瞧", short: "五劳七伤" },
+          { number: 5, name: "摇头摆尾去心火", short: "摇头摆尾" },
+          { number: 6, name: "两手攀足固肾腰", short: "攀足固肾" },
+          { number: 7, name: "攒拳怒目增气力", short: "攒拳怒目" },
+          { number: 8, name: "背后七颠百病消", short: "背后七颠" }
+        ];
+        
+        this.cards = [];
+        this.flippedCards = [];
+        this.matchedPairs = 0;
+        this.moves = 0;
+        this.gameStarted = false;
+        this.gameTime = 0;
+        this.timer = null;
+        
+        this.initializeGame();
+      }
+      
+      initializeGame() {
+        this.createCards();
+        this.shuffleCards();
+        this.renderBoard();
+        this.bindEvents();
+      }
+      
+      createCards() {
+        this.cards = [];
+        
+        // 创建数字卡片
+        this.movements.forEach(movement => {
+          this.cards.push({
+            id: `num-${movement.number}`,
+            type: 'number',
+            content: movement.number,
+            pair: movement.name,
+            flipped: false,
+            matched: false
+          });
+        });
+        
+        // 创建名称卡片
+        this.movements.forEach(movement => {
+          this.cards.push({
+            id: `name-${movement.number}`,
+            type: 'name',
+            content: movement.short,
+            pair: movement.number,
+            flipped: false,
+            matched: false
+          });
+        });
+      }
+      
+      shuffleCards() {
+        for (let i = this.cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        }
+      }
+      
+      renderBoard() {
+        const board = document.getElementById('gameBoard');
+        board.innerHTML = '';
+        
+        this.cards.forEach(card => {
+          const cardElement = document.createElement('div');
+          cardElement.className = 'game-card';
+          cardElement.dataset.cardId = card.id;
+          
+          const cardContent = document.createElement('div');
+          cardContent.className = 'card-content';
+          
+          if (card.flipped || card.matched) {
+            cardContent.innerHTML = `
+              <div class="card-number">${card.type === 'number' ? card.content : ''}</div>
+              <div class="card-name">${card.type === 'name' ? card.content : ''}</div>
+            `;
+            cardElement.classList.add('flipped');
+          } else {
+            cardContent.innerHTML = '<div class="card-number">?</div>';
+          }
+          
+          if (card.matched) {
+            cardElement.classList.add('matched');
+          }
+          
+          cardElement.appendChild(cardContent);
+          board.appendChild(cardElement);
+        });
+      }
+      
+      bindEvents() {
+        document.getElementById('startBtn').addEventListener('click', () => this.startGame());
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
+        
+        document.getElementById('gameBoard').addEventListener('click', (e) => {
+          const cardElement = e.target.closest('.game-card');
+          if (cardElement && !this.gameStarted) return;
+          
+          if (cardElement) {
+            const cardId = cardElement.dataset.cardId;
+            this.flipCard(cardId);
+          }
+        });
+      }
+      
+      startGame() {
+        this.gameStarted = true;
+        this.startTimer();
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('resetBtn').disabled = false;
+        document.getElementById('gameMessage').textContent = '游戏开始！寻找配对！';
+        document.getElementById('gameMessage').className = 'game-message info-message';
+      }
+      
+      resetGame() {
+        this.matchedPairs = 0;
+        this.moves = 0;
+        this.gameStarted = false;
+        this.gameTime = 0;
+        this.flippedCards = [];
+        
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+        
+        this.cards.forEach(card => {
+          card.flipped = false;
+          card.matched = false;
+        });
+        
+        this.shuffleCards();
+        this.renderBoard();
+        this.updateStats();
+        
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('resetBtn').disabled = true;
+        document.getElementById('gameMessage').textContent = '点击"开始游戏"开始你的八段锦记忆挑战！';
+        document.getElementById('gameMessage').className = 'game-message';
+      }
+      
+      flipCard(cardId) {
+        if (!this.gameStarted) return;
+        
+        const card = this.cards.find(c => c.id === cardId);
+        if (!card || card.flipped || card.matched) return;
+        
+        if (this.flippedCards.length >= 2) return;
+        
+        card.flipped = true;
+        this.flippedCards.push(card);
+        this.renderBoard();
+        
+        if (this.flippedCards.length === 2) {
+          this.moves++;
+          this.updateStats();
+          this.checkMatch();
+        }
+      }
+      
+      checkMatch() {
+        const [card1, card2] = this.flippedCards;
+        
+        setTimeout(() => {
+          if (card1.pair === card2.content || card2.pair === card1.content) {
+            // 配对成功
+            card1.matched = true;
+            card2.matched = true;
+            this.matchedPairs++;
+            
+            document.getElementById('gameMessage').textContent = '配对成功！继续加油！';
+            document.getElementById('gameMessage').className = 'game-message success-message';
+            
+            if (this.matchedPairs === 8) {
+              this.endGame();
+            }
+          } else {
+            // 配对失败
+            card1.flipped = false;
+            card2.flipped = false;
+            document.getElementById('gameMessage').textContent = '配对失败，再试一次！';
+            document.getElementById('gameMessage').className = 'game-message';
+          }
+          
+          this.flippedCards = [];
+          this.renderBoard();
+        }, 1000);
+      }
+      
+      startTimer() {
+        this.timer = setInterval(() => {
+          this.gameTime++;
+          this.updateStats();
+        }, 1000);
+      }
+      
+      updateStats() {
+        document.getElementById('moves').textContent = this.moves;
+        document.getElementById('matches').textContent = this.matchedPairs;
+        
+        const minutes = Math.floor(this.gameTime / 60);
+        const seconds = this.gameTime % 60;
+        document.getElementById('time').textContent = 
+          `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+      
+      endGame() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+        
+        const minutes = Math.floor(this.gameTime / 60);
+        const seconds = this.gameTime % 60;
+        
+        document.getElementById('gameMessage').innerHTML = `
+          🎉 恭喜！你完成了八段锦记忆挑战！<br>
+          时间：${minutes}:${seconds.toString().padStart(2, '0')} | 步数：${this.moves}
+        `;
+        document.getElementById('gameMessage').className = 'game-message success-message';
+        
+        this.gameStarted = false;
+        document.getElementById('startBtn').disabled = false;
+      }
+    }
+    
+    // 页面加载时初始化游戏
+    document.addEventListener('DOMContentLoaded', () => {
+      new BaDuanJinMemoryGame();
+    });
+  </script>
+</body>
+</html>
