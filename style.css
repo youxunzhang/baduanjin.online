@@ -1154,6 +1154,271 @@ body {
   color: #4a5568;
 }
 
+/* Authority Section */
+.authority {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.authority-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.authority-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.authority-card:hover {
+  transform: translateY(-5px);
+}
+
+.authority-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.authority-card h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.authority-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Latest Research Section */
+.latest-research {
+  padding: 4rem 0;
+  background: white;
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.research-card {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+  transition: transform 0.3s ease;
+}
+
+.research-card:hover {
+  transform: translateY(-3px);
+}
+
+.research-card h3 {
+  color: #2d3748;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.research-card p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.research-date {
+  color: #667eea;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* About Page Styles */
+.mission {
+  padding: 4rem 0;
+  background: white;
+}
+
+.mission-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4a5568;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.team {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.team-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-avatar {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.team-card h3 {
+  color: #2d3748;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.team-title {
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.team-credentials {
+  text-align: left;
+}
+
+.team-credentials p {
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.certifications {
+  padding: 4rem 0;
+  background: white;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.cert-card {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.cert-card:hover {
+  border-color: #667eea;
+  transform: translateY(-3px);
+}
+
+.cert-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.cert-card h3 {
+  color: #2d3748;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.cert-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.achievements {
+  padding: 4rem 0;
+  background: #667eea;
+  color: white;
+}
+
+.achievements h2 {
+  color: white;
+  text-align: center;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.achievement-item {
+  text-align: center;
+}
+
+.achievement-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-item p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.contact-info {
+  padding: 4rem 0;
+  background: #f8fafc;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.contact-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.contact-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.contact-card p {
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
 /* Target Audiences Section */
 .target-audiences {
   padding: 4rem 0;
