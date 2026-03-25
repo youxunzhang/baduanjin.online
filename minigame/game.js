@@ -1,4 +1,4 @@
-const { SudokuGame } = require('../miniprogram/lib/sudoku');
+const { SudokuGame } = require('./lib/sudoku');
 
 const game = new SudokuGame();
 const canvas = wx.createCanvas();
