@@ -31,5 +31,6 @@
   },
   "isGameTourist": false,
   "appid": "wx0993fcb0a3b3d569",
-  "editorSetting": {}
+  "editorSetting": {},
+  "libVersion": "3.15.0"
 }
