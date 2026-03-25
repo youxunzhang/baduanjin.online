@@ -1,4 +1,4 @@
-const puzzles = require('../../data/sudoku-puzzles.json');
+const puzzles = require('../../data/sudoku-puzzles');
 const { DIFFICULTIES, ERROR_CODES } = require('./types');
 
 function parseGrid(value) {
