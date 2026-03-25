@@ -8,7 +8,7 @@
 2. 项目目录请选择仓库根目录（包含 `project.config.json` 的目录），不要选 `minigame/` 子目录。
 3. 确认 `project.config.json` 中：
    - `compileType` 是 `game`
-   - `gameRoot` 是 `minigame/`
+   - `gameRoot` / `minigameRoot` 都是 `minigame/`
 4. 清缓存后重新编译：`工具 -> 清除缓存 -> 全部清除`，再点击“编译”。
 
 ## 为什么会看到“打飞机”
@@ -20,5 +20,12 @@
 - 小游戏脚本入口：`minigame/game.js`
 - 小游戏配置：`minigame/game.json`
 - 工程配置：`project.config.json`
+
+另外，仓库根目录也提供了兼容入口：
+
+- `game.js`（转发到 `minigame/game.js`）
+- `game.json`（与 `minigame/game.json` 保持一致）
+
+这是为了兼容部分版本开发者工具在自动预览时只查找根目录 `game.json` 的行为。
 
 只要按上面的方式导入，运行出来应该是“数独库小游戏”，不是“打飞机”。
