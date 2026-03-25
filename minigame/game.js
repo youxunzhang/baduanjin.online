@@ -130,6 +130,31 @@ function onTap(x, y) {
   }
 }
 
+function getTouchPoint(touch) {
+  if (!touch || typeof touch !== 'object') return null;
+  const x = Number.isFinite(touch.clientX)
+    ? touch.clientX
+    : Number.isFinite(touch.x)
+      ? touch.x
+      : Number.isFinite(touch.pageX)
+        ? touch.pageX
+        : Number.isFinite(touch.screenX)
+          ? touch.screenX
+          : NaN;
+  const y = Number.isFinite(touch.clientY)
+    ? touch.clientY
+    : Number.isFinite(touch.y)
+      ? touch.y
+      : Number.isFinite(touch.pageY)
+        ? touch.pageY
+        : Number.isFinite(touch.screenY)
+          ? touch.screenY
+          : NaN;
+
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  return { x, y };
+}
+
 function drawRoundRect(x, y, w, h, radius, color) {
   ctx.beginPath();
   ctx.moveTo(x + radius, y);
@@ -240,6 +265,7 @@ loop();
 
 wx.onTouchStart((event) => {
   const touch = event.touches[0];
-  if (!touch) return;
-  onTap(touch.clientX, touch.clientY);
+  const point = getTouchPoint(touch);
+  if (!point) return;
+  onTap(point.x, point.y);
 });
