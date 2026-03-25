@@ -223,7 +223,15 @@ function draw() {
 
 function loop() {
   draw();
-  canvas.requestAnimationFrame(loop);
+  if (canvas && typeof canvas.requestAnimationFrame === 'function') {
+    canvas.requestAnimationFrame(loop);
+    return;
+  }
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(loop);
+    return;
+  }
+  setTimeout(loop, 16);
 }
 
 adaptScreen();
