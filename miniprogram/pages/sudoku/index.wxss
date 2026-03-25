@@ -1,9 +1,208 @@
-.sudoku-page { padding: 24rpx; }
-.status { margin-bottom: 16rpx; color: #333; }
-.grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4rpx; }
-.cell { height: 68rpx; line-height: 68rpx; text-align: center; background: #fafafa; border: 1rpx solid #ddd; }
-.cell.given { font-weight: 700; color: #222; background: #f0f4ff; }
-.cell.conflict { color: #d93025; background: #ffe8e6; }
-.cell.selected { border-color: #1a73e8; }
-.panel { margin-top: 18rpx; }
-.numbers { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6rpx; margin-bottom: 12rpx; }
+page {
+  background: #f3f5fb;
+}
+
+.sudoku-page {
+  padding: 24rpx;
+  color: #17223b;
+}
+
+.hero {
+  margin-bottom: 28rpx;
+}
+
+.hero-title {
+  font-size: 72rpx;
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 16rpx;
+}
+
+.hero-desc {
+  color: #4a5568;
+  font-size: 46rpx;
+  line-height: 1.45;
+}
+
+.feature-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 26rpx;
+}
+
+.chip {
+  border: 4rpx solid #d89a1b;
+  background: #fff7da;
+  color: #6d3d00;
+  border-radius: 999rpx;
+  padding: 12rpx 24rpx;
+  font-size: 48rpx;
+  font-weight: 700;
+}
+
+.chip.active {
+  background: #ffe7a6;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-bottom: 14rpx;
+}
+
+.row-label {
+  font-size: 58rpx;
+  font-weight: 700;
+  min-width: 130rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 90rpx;
+  border-radius: 20rpx;
+  border: 3rpx solid #c4ccd8;
+  background: #ffffff;
+  color: #111827;
+  font-size: 46rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 20rpx;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.status-box {
+  margin: 20rpx 0;
+  background: #dbe1ef;
+  border-radius: 18rpx;
+  padding: 22rpx;
+  font-size: 50rpx;
+  font-weight: 700;
+  color: #1b2a4b;
+}
+
+.grid-wrap {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 6rpx 24rpx rgba(12, 31, 61, 0.08);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.cell {
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  border: 1rpx solid #c7d0dd;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #0f1b34;
+  background: #fff;
+}
+
+.cell.shade {
+  background: #eef2fa;
+}
+
+.cell.given {
+  font-weight: 800;
+}
+
+.cell.conflict {
+  color: #c53030;
+  background: #ffe5e5;
+}
+
+.cell.selected {
+  box-shadow: inset 0 0 0 4rpx #2b6ef3;
+  background: #fff;
+}
+
+.number-pad {
+  margin-top: 20rpx;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10rpx;
+}
+
+.number-btn {
+  height: 80rpx;
+  border-radius: 14rpx;
+  border: 2rpx solid #bcc6d6;
+  background: #fff;
+  color: #162137;
+  font-size: 42rpx;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.number-btn::after {
+  border: none;
+}
+
+.number-btn.erase {
+  grid-column: span 1;
+  background: #edf2fb;
+}
+
+.sudoku-page.large-text .hero-title {
+  font-size: 82rpx;
+}
+
+.sudoku-page.large-text .hero-desc,
+.sudoku-page.large-text .chip,
+.sudoku-page.large-text .row-label,
+.sudoku-page.large-text .action-btn,
+.sudoku-page.large-text .status-box,
+.sudoku-page.large-text .cell,
+.sudoku-page.large-text .number-btn {
+  font-size: 54rpx;
+}
+
+.sudoku-page.high-contrast {
+  background: #fefae0;
+}
+
+.sudoku-page.high-contrast .chip {
+  background: #fff;
+  border-color: #000;
+  color: #000;
+}
+
+.sudoku-page.high-contrast .action-btn,
+.sudoku-page.high-contrast .number-btn,
+.sudoku-page.high-contrast .status-box,
+.sudoku-page.high-contrast .grid-wrap {
+  border-color: #000;
+  color: #000;
+}
+
+.sudoku-page.high-contrast .cell {
+  color: #000;
+  border-color: #444;
+}
+
+.sudoku-page.high-contrast .cell.selected {
+  box-shadow: inset 0 0 0 5rpx #0052cc;
+}
+
+.action-row.big .action-btn {
+  height: 106rpx;
+}
+
+.number-pad.big .number-btn {
+  height: 96rpx;
+}
