@@ -1,27 +1,14 @@
 {
-  "description": "数独库微信小游戏",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
   "setting": {
-    "urlCheck": false,
-    "es6": true,
-    "enhance": true,
-    "postcss": true,
-    "minified": true,
-    "coverView": true,
-    "showShadowRootInWxmlPanel": true,
-    "packNpmRelationList": [],
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
+    "es6": false,
+    "postcss": false,
     "compileWorklet": false,
+    "minified": false,
     "uglifyFileName": false,
     "uploadWithSourceMap": true,
+    "enhance": false,
     "packNpmManually": false,
+    "packNpmRelationList": [],
     "minifyWXSS": true,
     "minifyWXML": true,
     "localPlugins": false,
@@ -29,21 +16,20 @@
     "useCompilerPlugins": false,
     "condition": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "game",
-  "libVersion": "trial",
-  "appid": "wx0993fcb0a3b3d569",
-  "projectname": "sudoku-minigame",
-  "gameRoot": "minigame/",
-<<<<<<< HEAD
-  "condition": {},
   "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
   "isGameTourist": false,
+  "appid": "wx0993fcb0a3b3d569",
   "editorSetting": {}
 }
-=======
-  "minigameRoot": "minigame/",
-  "condition": {}
-}
->>>>>>> 7ad5461ee6dfd91777abbf59446c1cadbaae6f35
