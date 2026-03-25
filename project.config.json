@@ -1,5 +1,5 @@
 {
-  "description": "数独库微信小程序",
+  "description": "数独库微信小游戏",
   "packOptions": {
     "ignore": []
   },
@@ -18,11 +18,10 @@
       "outputPath": ""
     }
   },
-  "compileType": "miniprogram",
+  "compileType": "game",
   "libVersion": "trial",
   "appid": "touristappid",
-  "projectname": "sudoku-miniapp",
-  "miniprogramRoot": "miniprogram/",
-  "srcMiniprogramRoot": "miniprogram/",
+  "projectname": "sudoku-minigame",
+  "gameRoot": "minigame/",
   "condition": {}
 }
