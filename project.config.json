@@ -23,5 +23,6 @@
   "appid": "touristappid",
   "projectname": "sudoku-minigame",
   "gameRoot": "minigame/",
+  "minigameRoot": "minigame/",
   "condition": {}
 }
