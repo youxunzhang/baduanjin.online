@@ -1,7 +1,14 @@
 const { SudokuGame } = require('./lib/sudoku/index');
 
 const game = new SudokuGame();
-const canvas = wx.createCanvas();
+
+function createGameCanvas() {
+  if (typeof wx.createCanvas === 'function') return wx.createCanvas();
+  if (typeof wx.createOffscreenCanvas === 'function') return wx.createOffscreenCanvas({ type: '2d' });
+  throw new Error('当前运行环境不支持 Canvas');
+}
+
+const canvas = createGameCanvas();
 const ctx = canvas.getContext('2d');
 
 let state = null;
@@ -14,6 +21,16 @@ let originX = 0;
 let originY = 0;
 let numButtons = [];
 let actionButtons = [];
+
+
+function reportRuntimeError(prefix, err) {
+  const raw = err && (err.stack || err.errMsg || err.message || String(err));
+  const message = String(raw || '').split('\n').filter(Boolean).slice(0, 2).join(' | ') || '未知错误';
+  statusText = `${prefix}: ${message}`;
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(`[MiniGame] ${prefix}`, err);
+  }
+}
 
 function adaptScreen() {
   const sys = wx.getSystemInfoSync();
@@ -257,6 +274,20 @@ function loop() {
     return;
   }
   setTimeout(loop, 16);
+}
+
+
+
+if (typeof wx.onError === 'function') {
+  wx.onError((err) => {
+    reportRuntimeError('运行异常', err);
+  });
+}
+
+if (typeof wx.onUnhandledRejection === 'function') {
+  wx.onUnhandledRejection((err) => {
+    reportRuntimeError('异步异常', err);
+  });
 }
 
 adaptScreen();
