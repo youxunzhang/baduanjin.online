@@ -36,8 +36,14 @@
   "appid": "wx0993fcb0a3b3d569",
   "projectname": "sudoku-minigame",
   "gameRoot": "minigame/",
+<<<<<<< HEAD
   "condition": {},
   "simulatorPluginLibVersion": {},
   "isGameTourist": false,
   "editorSetting": {}
 }
+=======
+  "minigameRoot": "minigame/",
+  "condition": {}
+}
+>>>>>>> 7ad5461ee6dfd91777abbf59446c1cadbaae6f35
