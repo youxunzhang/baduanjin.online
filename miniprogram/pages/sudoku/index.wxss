@@ -1,0 +1,9 @@
+.sudoku-page { padding: 24rpx; }
+.status { margin-bottom: 16rpx; color: #333; }
+.grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4rpx; }
+.cell { height: 68rpx; line-height: 68rpx; text-align: center; background: #fafafa; border: 1rpx solid #ddd; }
+.cell.given { font-weight: 700; color: #222; background: #f0f4ff; }
+.cell.conflict { color: #d93025; background: #ffe8e6; }
+.cell.selected { border-color: #1a73e8; }
+.panel { margin-top: 18rpx; }
+.numbers { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6rpx; margin-bottom: 12rpx; }
