@@ -1,24 +1,50 @@
-<view class="sudoku-page">
-  <view class="status">{{statusText}}</view>
-  <view class="grid">
-    <block wx:for="{{grid}}" wx:key="index">
-      <view
-        class="cell {{givensMask[index] ? 'given' : ''}} {{conflicts.indexOf(index) > -1 ? 'conflict' : ''}} {{selectedIndex === index ? 'selected' : ''}}"
-        data-index="{{index}}"
-        bindtap="onTapCell"
-      >{{item === 0 ? '' : item}}</view>
-    </block>
+<view class="sudoku-page {{largeText ? 'large-text' : ''}} {{highContrast ? 'high-contrast' : ''}}">
+  <view class="hero">
+    <view class="hero-title">🧩 数独库游戏</view>
+    <view class="hero-desc">选择难度后开始游戏，填写数字 1-9，点击提示可自动填一个格子。</view>
   </view>
-  <view class="panel">
-    <view class="numbers">
-      <block wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="*this">
-        <button size="mini" data-value="{{item}}" bindtap="onInputNumber">{{item}}</button>
+
+  <view class="feature-chips">
+    <view class="chip {{largeText ? 'active' : ''}}" bindtap="toggleLargeText">👓 大字模式</view>
+    <view class="chip {{bigButtons ? 'active' : ''}}" bindtap="toggleBigButtons">✋ 按钮更大</view>
+    <view class="chip {{highContrast ? 'active' : ''}}" bindtap="toggleHighContrast">🌈 高对比度</view>
+  </view>
+
+  <view class="action-row {{bigButtons ? 'big' : ''}}">
+    <view class="row-label">🎯 难度</view>
+    <picker mode="selector" range="{{difficultyOptions}}" range-key="label" value="{{difficultyIndex}}" bindchange="onDifficultyChange">
+      <view class="action-btn picker-btn">{{difficultyLabel}}</view>
+    </picker>
+    <button class="action-btn" bindtap="onTapNewGame">🆕 新游戏</button>
+  </view>
+
+  <view class="action-row {{bigButtons ? 'big' : ''}}">
+    <button class="action-btn" bindtap="onTapCheck">✅ 检查</button>
+    <button class="action-btn" bindtap="onTapHint">💡 提示</button>
+    <button class="action-btn" bindtap="onTapSolve">📘 显示答案</button>
+  </view>
+
+  <view class="status-box">{{statusText}}</view>
+
+  <view class="grid-wrap">
+    <view class="grid">
+      <block wx:for="{{grid}}" wx:key="index">
+        <view
+          class="cell {{givensMask[index] ? 'given' : ''}} {{conflicts.indexOf(index) > -1 ? 'conflict' : ''}} {{selectedIndex === index ? 'selected' : ''}} {{(Math.floor(index / 9) + Math.floor((index % 9) / 3)) % 2 === 0 ? 'shade' : ''}}"
+          style="{{cellBorderStyle[index]}}"
+          data-index="{{index}}"
+          bindtap="onTapCell"
+        >
+          {{item === 0 ? '' : item}}
+        </view>
       </block>
     </view>
-    <button bindtap="onTapErase">擦除</button>
-    <button bindtap="onTapCheck">检查</button>
-    <button bindtap="onTapHint">提示</button>
-    <button bindtap="onTapSolve">答案</button>
-    <button bindtap="onTapNewGame">新局</button>
+  </view>
+
+  <view class="number-pad {{bigButtons ? 'big' : ''}}">
+    <block wx:for="{{numbers}}" wx:key="*this">
+      <button class="number-btn" data-value="{{item}}" bindtap="onInputNumber">{{item}}</button>
+    </block>
+    <button class="number-btn erase" bindtap="onTapErase">⌫</button>
   </view>
 </view>
