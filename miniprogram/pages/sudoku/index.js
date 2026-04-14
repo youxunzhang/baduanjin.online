@@ -46,6 +46,7 @@ Page({
     elapsedSec: 0,
     mistakeCount: 0,
     isSolved: false,
+    showVictoryModal: false,
     largeText: false,
     bigButtons: false,
     highContrast: false,
@@ -101,7 +102,11 @@ Page({
     const result = this.game.check();
     if (!result.ok) return this.showError(result.code);
     const statusText = result.isSolved ? '恭喜通关！' : result.conflicts.length ? '存在冲突，请检查红色格子' : '当前无冲突，继续加油！';
+    const wasSolved = this.data.isSolved;
     this.setData({ conflicts: result.conflicts, statusText, isSolved: result.isSolved });
+    if (result.isSolved && !wasSolved) {
+      this.showVictoryModal();
+    }
   },
 
   onTapHint() {
@@ -145,6 +150,7 @@ Page({
   syncFromResult(result, successText) {
     if (!result.ok) return this.showError(result.code);
     const state = result.state || this.game.getState();
+    const wasSolved = this.data.isSolved;
     this.setData({
       grid: state.grid,
       givensMask: state.givensMask,
@@ -154,7 +160,20 @@ Page({
       isSolved: state.isSolved,
       statusText: successText || (state.isSolved ? '恭喜通关！' : '继续加油！')
     });
+    if (state.isSolved && !wasSolved) {
+      this.showVictoryModal();
+    }
   },
+
+  showVictoryModal() {
+    this.setData({ showVictoryModal: true });
+  },
+
+  closeVictoryModal() {
+    this.setData({ showVictoryModal: false });
+  },
+
+  onTapDialog() {},
 
   showError(code) {
     this.setData({ statusText: ERROR_TEXT[code] || '操作失败' });
