@@ -126,6 +126,51 @@ page {
   color: #f7f9ff;
 }
 
+.victory-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.victory-modal {
+  width: 84%;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 44rpx 32rpx 34rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
+
+.victory-title {
+  font-size: 76rpx;
+  color: #1d4ed8;
+  font-weight: 900;
+  margin-bottom: 18rpx;
+}
+
+.victory-desc {
+  font-size: 46rpx;
+  color: #334155;
+  margin-bottom: 30rpx;
+}
+
+.victory-btn {
+  height: 90rpx;
+  border-radius: 16rpx;
+  background: #2563eb;
+  color: #fff;
+  font-size: 42rpx;
+  font-weight: 700;
+}
+
+.victory-btn::after {
+  border: none;
+}
+
 .grid-wrap {
   background: #fff;
   border-radius: 20rpx;

@@ -34,6 +34,14 @@
 
   <view class="status-box">{{statusText}}</view>
 
+  <view wx:if="{{showVictoryModal}}" class="victory-mask" bindtap="closeVictoryModal">
+    <view class="victory-modal" catchtap="onTapDialog">
+      <view class="victory-title">🎉 恭喜通关！</view>
+      <view class="victory-desc">你太厉害了，数独完成！</view>
+      <button class="victory-btn" bindtap="closeVictoryModal">我知道了</button>
+    </view>
+  </view>
+
   <view class="grid-wrap">
     <view class="grid">
       <block wx:for="{{grid}}" wx:key="index">
