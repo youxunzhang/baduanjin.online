@@ -32,6 +32,51 @@ let difficultyButtons = [];
 let titleX = 16;
 let titleY = 44;
 let difficulty = 'beginner';
+const SHARE_IMAGE_URL = 'https://baduanjin.online/icon-512.png';
+
+function getDifficultyLabel(value = difficulty) {
+  return (DIFFICULTIES.find((item) => item.value === value) || {}).label || '入门';
+}
+
+function buildSharePayload(type = 'friend') {
+  const elapsed = formatElapsed(getElapsedSec());
+  const mistakes = state ? Number(state.mistakeCount || 0) : 0;
+  const diffLabel = getDifficultyLabel(difficulty);
+  const title = state && state.isSolved
+    ? `我在数独库通关了${diffLabel}难度，用时${elapsed}！`
+    : `来挑战数独库${diffLabel}难度，当前用时${elapsed}（错误${mistakes}/${MISTAKE_LIMIT}）`;
+  const query = `difficulty=${encodeURIComponent(difficulty)}&from=${type}`;
+
+  return {
+    title,
+    query,
+    imageUrl: SHARE_IMAGE_URL
+  };
+}
+
+function setupShareMenu() {
+  if (typeof wx.showShareMenu === 'function') {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
+  }
+
+  if (typeof wx.onShareAppMessage === 'function') {
+    wx.onShareAppMessage(() => buildSharePayload('friend'));
+  }
+
+  if (typeof wx.onShareTimeline === 'function') {
+    wx.onShareTimeline(() => {
+      const payload = buildSharePayload('timeline');
+      return {
+        title: payload.title,
+        query: payload.query,
+        imageUrl: payload.imageUrl
+      };
+    });
+  }
+}
 
 function formatElapsed(sec) {
   const safe = Math.max(0, Number(sec) || 0);
@@ -128,7 +173,7 @@ function startNewGame(nextDifficulty = difficulty) {
   }
   state = result.state;
   selected = -1;
-  const diffLabel = (DIFFICULTIES.find((item) => item.value === difficulty) || {}).label || '入门';
+  const diffLabel = getDifficultyLabel(difficulty);
   statusText = `${diffLabel}难度开始，祝你通关！`;
 }
 
@@ -364,6 +409,7 @@ if (typeof wx.onUnhandledRejection === 'function') {
 }
 
 adaptScreen();
+setupShareMenu();
 startNewGame('beginner');
 loop();
 
