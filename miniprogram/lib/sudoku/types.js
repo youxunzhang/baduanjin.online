@@ -1,4 +1,4 @@
-const DIFFICULTIES = ['easy', 'medium', 'hard', 'expert'];
+const DIFFICULTIES = ['beginner', 'easy', 'medium', 'hard'];
 
 const ERROR_CODES = {
   E_GRID_SHAPE: 'E_GRID_SHAPE',
