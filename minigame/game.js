@@ -1,6 +1,13 @@
 const { SudokuGame } = require('./lib/sudoku/index');
 
 const game = new SudokuGame();
+const DIFFICULTIES = [
+  { value: 'beginner', label: '入门' },
+  { value: 'easy', label: '初级' },
+  { value: 'medium', label: '中级' },
+  { value: 'hard', label: '高级' }
+];
+const MISTAKE_LIMIT = 3;
 
 function createGameCanvas() {
   if (typeof wx.createCanvas === 'function') return wx.createCanvas();
@@ -21,9 +28,22 @@ let originX = 0;
 let originY = 0;
 let numButtons = [];
 let actionButtons = [];
+let difficultyButtons = [];
 let titleX = 16;
 let titleY = 44;
+let difficulty = 'beginner';
 
+function formatElapsed(sec) {
+  const safe = Math.max(0, Number(sec) || 0);
+  const min = String(Math.floor(safe / 60)).padStart(2, '0');
+  const second = String(safe % 60).padStart(2, '0');
+  return `${min}:${second}`;
+}
+
+function getElapsedSec() {
+  if (!state || !state.startedAt) return 0;
+  return Math.floor((Date.now() - state.startedAt) / 1000);
+}
 
 function reportRuntimeError(prefix, err) {
   const raw = err && (err.stack || err.errMsg || err.message || String(err));
@@ -46,17 +66,35 @@ function adaptScreen() {
   const headerTop = Math.max(16, safeTop + 8);
   titleX = margin;
   titleY = headerTop + 18;
-  const actionTop = titleY + 16;
 
-  gridSize = Math.min(sys.windowWidth - margin * 2, sys.windowHeight * 0.62);
+  const tabsTop = titleY + 16;
+  const tabsWidth = sys.windowWidth - margin * 2;
+  const tabW = (tabsWidth - 6) / 4;
+
+  difficultyButtons = DIFFICULTIES.map((item, index) => ({
+    ...item,
+    x: margin + index * (tabW + 2),
+    y: tabsTop,
+    w: tabW,
+    h: 34
+  }));
+
+  const metaTop = tabsTop + 46;
+  actionButtons = [
+    { label: '新局', action: 'new', x: margin, y: metaTop + 44, w: 72, h: 34 },
+    { label: '提示', action: 'hint', x: margin + 82, y: metaTop + 44, w: 72, h: 34 },
+    { label: '检查', action: 'check', x: margin + 164, y: metaTop + 44, w: 72, h: 34 }
+  ];
+
+  gridSize = Math.min(sys.windowWidth - margin * 2, sys.windowHeight * 0.5);
   cellSize = gridSize / 9;
   originX = (sys.windowWidth - gridSize) / 2;
-  originY = actionTop + 50;
+  originY = metaTop + 88;
 
   numButtons = [];
   const bw = (sys.windowWidth - margin * 2 - 16) / 5;
   const bh = 42;
-  const padTop = originY + gridSize + 24;
+  const padTop = originY + gridSize + 36;
 
   for (let i = 0; i < 9; i += 1) {
     const row = Math.floor(i / 5);
@@ -75,27 +113,23 @@ function adaptScreen() {
     label: '清空',
     value: 0,
     x: margin + 4 * (bw + 4),
-    y: padTop + (bh + 8),
+    y: padTop + bh + 8,
     w: bw,
     h: bh
   });
-
-  actionButtons = [
-    { label: '新局', action: 'new', x: margin, y: actionTop, w: 72, h: 34 },
-    { label: '提示', action: 'hint', x: margin + 82, y: actionTop, w: 72, h: 34 },
-    { label: '检查', action: 'check', x: margin + 164, y: actionTop, w: 72, h: 34 }
-  ];
 }
 
-function startNewGame() {
-  const result = game.newGame({ difficulty: 'easy' });
+function startNewGame(nextDifficulty = difficulty) {
+  difficulty = nextDifficulty;
+  const result = game.newGame({ difficulty });
   if (!result.ok) {
     statusText = '题库加载失败';
     return;
   }
   state = result.state;
   selected = -1;
-  statusText = '数独库小游戏（简单）';
+  const diffLabel = (DIFFICULTIES.find((item) => item.value === difficulty) || {}).label || '入门';
+  statusText = `${diffLabel}难度开始，祝你通关！`;
 }
 
 function refreshState() {
@@ -108,10 +142,17 @@ function hitTest(x, y, r) {
 }
 
 function onTap(x, y) {
+  for (const tab of difficultyButtons) {
+    if (hitTest(x, y, tab)) {
+      startNewGame(tab.value);
+      return;
+    }
+  }
+
   for (const btn of actionButtons) {
     if (hitTest(x, y, btn)) {
       if (btn.action === 'new') {
-        startNewGame();
+        startNewGame(difficulty);
       } else if (btn.action === 'hint') {
         const res = game.hint();
         statusText = res.ok ? '已填入一个提示' : '当前盘面无法提示';
@@ -148,8 +189,15 @@ function onTap(x, y) {
         return;
       }
       const result = btn.value === 0 ? game.erase(selected) : game.input(selected, btn.value);
-      statusText = result.ok ? '已更新' : '该位置不可填写';
       refreshState();
+      if (result.ok) {
+        statusText = '已更新';
+      } else {
+        const mistakes = state ? state.mistakeCount : 0;
+        statusText = mistakes >= MISTAKE_LIMIT
+          ? `错误已达 ${MISTAKE_LIMIT} 次，请小心填写`
+          : `填写错误（${mistakes}/${MISTAKE_LIMIT}）`;
+      }
       return;
     }
   }
@@ -197,6 +245,8 @@ function draw() {
 
   const w = canvas.width / ratio;
   const h = canvas.height / ratio;
+  const elapsed = formatElapsed(getElapsedSec());
+  const mistakes = Number(state.mistakeCount || 0);
 
   ctx.clearRect(0, 0, w, h);
   ctx.fillStyle = '#f6f8fb';
@@ -206,9 +256,22 @@ function draw() {
   ctx.font = 'bold 18px sans-serif';
   ctx.fillText('数独库 · 腾讯小游戏', titleX, titleY);
 
+  for (const tab of difficultyButtons) {
+    drawRoundRect(tab.x, tab.y, tab.w, tab.h, 10, tab.value === difficulty ? '#246BFD' : '#e5eaf3');
+    ctx.fillStyle = tab.value === difficulty ? '#fff' : '#324155';
+    ctx.font = '14px sans-serif';
+    ctx.fillText(tab.label, tab.x + tab.w * 0.32, tab.y + 22);
+  }
+
+  drawRoundRect(16, titleY + 62, 120, 34, 10, '#e9eef7');
+  ctx.fillStyle = '#334155';
   ctx.font = '14px sans-serif';
-  ctx.fillStyle = '#3b4a5a';
-  ctx.fillText(statusText, 16, originY + gridSize + 10);
+  ctx.fillText(`⏱ ${elapsed}`, 28, titleY + 84);
+
+  const errorColor = mistakes >= MISTAKE_LIMIT ? '#fee2e2' : '#e9eef7';
+  drawRoundRect(w - 136, titleY + 62, 120, 34, 10, errorColor);
+  ctx.fillStyle = mistakes >= MISTAKE_LIMIT ? '#b91c1c' : '#334155';
+  ctx.fillText(`❌ ${mistakes}/${MISTAKE_LIMIT}`, w - 122, titleY + 84);
 
   for (const btn of actionButtons) {
     drawRoundRect(btn.x, btn.y, btn.w, btn.h, 8, '#246BFD');
@@ -260,6 +323,10 @@ function draw() {
     ctx.stroke();
   }
 
+  ctx.font = '14px sans-serif';
+  ctx.fillStyle = '#3b4a5a';
+  ctx.fillText(statusText, 16, originY + gridSize + 20);
+
   for (const btn of numButtons) {
     drawRoundRect(btn.x, btn.y, btn.w, btn.h, 8, '#ffffff');
     ctx.strokeStyle = '#cbd5e1';
@@ -284,8 +351,6 @@ function loop() {
   setTimeout(loop, 16);
 }
 
-
-
 if (typeof wx.onError === 'function') {
   wx.onError((err) => {
     reportRuntimeError('运行异常', err);
@@ -299,7 +364,7 @@ if (typeof wx.onUnhandledRejection === 'function') {
 }
 
 adaptScreen();
-startNewGame();
+startNewGame('beginner');
 loop();
 
 wx.onTouchStart((event) => {
