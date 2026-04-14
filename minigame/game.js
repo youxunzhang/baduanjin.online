@@ -21,6 +21,8 @@ let originX = 0;
 let originY = 0;
 let numButtons = [];
 let actionButtons = [];
+let titleX = 16;
+let titleY = 44;
 
 
 function reportRuntimeError(prefix, err) {
@@ -37,13 +39,19 @@ function adaptScreen() {
   ratio = sys.pixelRatio || 1;
   canvas.width = sys.windowWidth * ratio;
   canvas.height = sys.windowHeight * ratio;
-  ctx.scale(ratio, ratio);
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
   const margin = 16;
+  const safeTop = sys.safeArea && Number.isFinite(sys.safeArea.top) ? sys.safeArea.top : 0;
+  const headerTop = Math.max(16, safeTop + 8);
+  titleX = margin;
+  titleY = headerTop + 18;
+  const actionTop = titleY + 16;
+
   gridSize = Math.min(sys.windowWidth - margin * 2, sys.windowHeight * 0.62);
   cellSize = gridSize / 9;
   originX = (sys.windowWidth - gridSize) / 2;
-  originY = 70;
+  originY = actionTop + 50;
 
   numButtons = [];
   const bw = (sys.windowWidth - margin * 2 - 16) / 5;
@@ -73,9 +81,9 @@ function adaptScreen() {
   });
 
   actionButtons = [
-    { label: '新局', action: 'new', x: margin, y: 18, w: 72, h: 34 },
-    { label: '提示', action: 'hint', x: margin + 82, y: 18, w: 72, h: 34 },
-    { label: '检查', action: 'check', x: margin + 164, y: 18, w: 72, h: 34 }
+    { label: '新局', action: 'new', x: margin, y: actionTop, w: 72, h: 34 },
+    { label: '提示', action: 'hint', x: margin + 82, y: actionTop, w: 72, h: 34 },
+    { label: '检查', action: 'check', x: margin + 164, y: actionTop, w: 72, h: 34 }
   ];
 }
 
@@ -196,7 +204,7 @@ function draw() {
 
   ctx.fillStyle = '#222';
   ctx.font = 'bold 18px sans-serif';
-  ctx.fillText('数独库 · 腾讯小游戏', 16, 44);
+  ctx.fillText('数独库 · 腾讯小游戏', titleX, titleY);
 
   ctx.font = '14px sans-serif';
   ctx.fillStyle = '#3b4a5a';
