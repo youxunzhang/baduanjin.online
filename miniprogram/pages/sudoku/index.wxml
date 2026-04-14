@@ -1,27 +1,35 @@
 <view class="sudoku-page {{largeText ? 'large-text' : ''}} {{highContrast ? 'high-contrast' : ''}}">
   <view class="hero">
-    <view class="hero-title">🧩 数独库游戏</view>
-    <view class="hero-desc">选择难度后开始游戏，填写数字 1-9，点击提示可自动填一个格子。</view>
+    <view class="hero-title">今日挑战</view>
+  </view>
+
+  <view class="difficulty-tabs {{bigButtons ? 'big' : ''}}">
+    <block wx:for="{{difficultyOptions}}" wx:key="value">
+      <view
+        class="tab-item {{difficulty === item.value ? 'active' : ''}}"
+        data-index="{{index}}"
+        bindtap="onTapDifficulty"
+      >
+        {{item.label}}
+      </view>
+    </block>
+  </view>
+
+  <view class="meta-row">
+    <view class="meta-pill">⏱ {{elapsedText}}</view>
+    <view class="meta-pill error {{mistakeCount >= mistakeLimit ? 'danger' : ''}}">❌ 错误: {{mistakeCount}}/{{mistakeLimit}}</view>
+  </view>
+
+  <view class="action-row {{bigButtons ? 'big' : ''}}">
+    <button class="action-btn" bindtap="onTapNewGame">重新开始</button>
+    <button class="action-btn" bindtap="onTapHint">提示</button>
+    <button class="action-btn" bindtap="onTapCheck">检查</button>
   </view>
 
   <view class="feature-chips">
-    <view class="chip {{largeText ? 'active' : ''}}" bindtap="toggleLargeText">👓 大字模式</view>
-    <view class="chip {{bigButtons ? 'active' : ''}}" bindtap="toggleBigButtons">✋ 按钮更大</view>
-    <view class="chip {{highContrast ? 'active' : ''}}" bindtap="toggleHighContrast">🌈 高对比度</view>
-  </view>
-
-  <view class="action-row {{bigButtons ? 'big' : ''}}">
-    <view class="row-label">🎯 难度</view>
-    <picker mode="selector" range="{{difficultyOptions}}" range-key="label" value="{{difficultyIndex}}" bindchange="onDifficultyChange">
-      <view class="action-btn picker-btn">{{difficultyLabel}}</view>
-    </picker>
-    <button class="action-btn" bindtap="onTapNewGame">🆕 新游戏</button>
-  </view>
-
-  <view class="action-row {{bigButtons ? 'big' : ''}}">
-    <button class="action-btn" bindtap="onTapCheck">✅ 检查</button>
-    <button class="action-btn" bindtap="onTapHint">💡 提示</button>
-    <button class="action-btn" bindtap="onTapSolve">📘 显示答案</button>
+    <view class="chip {{largeText ? 'active' : ''}}" bindtap="toggleLargeText">大字模式</view>
+    <view class="chip {{bigButtons ? 'active' : ''}}" bindtap="toggleBigButtons">按钮更大</view>
+    <view class="chip {{highContrast ? 'active' : ''}}" bindtap="toggleHighContrast">高对比度</view>
   </view>
 
   <view class="status-box">{{statusText}}</view>
