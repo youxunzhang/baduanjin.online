@@ -2,20 +2,22 @@ const { SudokuGame } = require('../../lib/sudoku');
 
 const GAME_STATE_KEY = 'sudoku_game_state_v1';
 const SETTINGS_KEY = 'sudoku_settings_v1';
+const MISTAKE_LIMIT = 3;
 
 const ERROR_TEXT = {
   E_GRID_SHAPE: '盘面结构异常',
   E_GRID_VALUE_RANGE: '数字范围不合法',
-  E_INVALID_MOVE: '该填入不合法',
+  E_INVALID_MOVE: '数字冲突，请换一个数字',
   E_PUZZLE_NOT_FOUND: '题目不存在',
   E_PUZZLE_INVALID: '题目数据异常',
   E_UNSOLVABLE: '当前盘面无解'
 };
 
 const DIFFICULTY_OPTIONS = [
-  { value: 'easy', label: '简单' },
-  { value: 'medium', label: '中等' },
-  { value: 'hard', label: '困难' }
+  { value: 'beginner', label: '入门' },
+  { value: 'easy', label: '初级' },
+  { value: 'medium', label: '中级' },
+  { value: 'hard', label: '高级' }
 ];
 
 function createCellBorderStyles() {
@@ -31,20 +33,27 @@ function createCellBorderStyles() {
   });
 }
 
+function formatElapsed(sec) {
+  const safe = Math.max(0, Number(sec) || 0);
+  const min = String(Math.floor(safe / 60)).padStart(2, '0');
+  const second = String(safe % 60).padStart(2, '0');
+  return `${min}:${second}`;
+}
+
 Page({
   data: {
     grid: Array(81).fill(0),
     givensMask: Array(81).fill(false),
     selectedIndex: -1,
     conflicts: [],
-    candidatesPanel: [],
-    difficulty: 'easy',
-    difficultyLabel: '简单',
+    difficulty: 'beginner',
     difficultyOptions: DIFFICULTY_OPTIONS,
     difficultyIndex: 0,
     statusText: '继续加油！',
     elapsedSec: 0,
+    elapsedText: '00:00',
     mistakeCount: 0,
+    mistakeLimit: MISTAKE_LIMIT,
     isSolved: false,
     showVictoryModal: false,
     largeText: false,
@@ -56,19 +65,23 @@ Page({
 
   onLoad() {
     this.game = new SudokuGame();
+    this.timer = null;
     this.restoreSettings();
     this.onTapNewGame();
   },
 
   onShow() {
     this.restoreGame();
+    this.startTimer();
   },
 
   onHide() {
+    this.stopTimer();
     this.persistGame();
   },
 
   onUnload() {
+    this.stopTimer();
     this.persistGame();
   },
 
@@ -114,18 +127,12 @@ Page({
     this.syncFromResult(result, '已填入一个提示格');
   },
 
-  onTapSolve() {
-    const result = this.game.solve();
-    this.syncFromResult(result, '已显示答案，可以再玩一局！');
-  },
-
-  onDifficultyChange(e) {
-    const index = Number(e.detail.value);
+  onTapDifficulty(e) {
+    const index = Number(e.currentTarget.dataset.index);
     const selected = DIFFICULTY_OPTIONS[index] || DIFFICULTY_OPTIONS[0];
     this.setData({
       difficultyIndex: index,
-      difficulty: selected.value,
-      difficultyLabel: selected.label
+      difficulty: selected.value
     });
     this.onTapNewGame();
   },
@@ -133,6 +140,7 @@ Page({
   onTapNewGame() {
     const result = this.game.newGame({ difficulty: this.data.difficulty });
     this.syncFromResult(result, '新游戏开始啦！');
+    this.startTimer();
   },
 
   toggleLargeText() {
@@ -156,6 +164,7 @@ Page({
       givensMask: state.givensMask,
       conflicts: state.conflicts,
       elapsedSec: state.elapsedSec,
+      elapsedText: formatElapsed(state.elapsedSec),
       mistakeCount: state.mistakeCount,
       isSolved: state.isSolved,
       statusText: successText || (state.isSolved ? '恭喜通关！' : '继续加油！')
@@ -176,7 +185,46 @@ Page({
   onTapDialog() {},
 
   showError(code) {
-    this.setData({ statusText: ERROR_TEXT[code] || '操作失败' });
+    const errorText = ERROR_TEXT[code] || '操作失败';
+    const mistakeCount = this.game && this.game.state ? this.game.state.mistakeCount : this.data.mistakeCount;
+    const reachedLimit = mistakeCount >= this.data.mistakeLimit;
+    const statusText = reachedLimit
+      ? `${errorText}，错误已达 ${this.data.mistakeLimit} 次，请仔细检查后继续。`
+      : `${errorText}（错误 ${mistakeCount}/${this.data.mistakeLimit}）`;
+
+    this.setData({
+      mistakeCount,
+      statusText
+    });
+
+    if (reachedLimit) {
+      wx.showToast({
+        title: '错误次数已达上限',
+        icon: 'none'
+      });
+    }
+  },
+
+  startTimer() {
+    this.stopTimer();
+    this.timer = setInterval(() => {
+      const state = this.game && this.game.getState && this.game.getState();
+      if (!state || !state.startedAt) return;
+      const elapsedSec = Math.floor((Date.now() - state.startedAt) / 1000);
+      if (elapsedSec !== this.data.elapsedSec) {
+        this.setData({
+          elapsedSec,
+          elapsedText: formatElapsed(elapsedSec)
+        });
+      }
+    }, 1000);
+  },
+
+  stopTimer() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
   },
 
   persistGame() {
@@ -208,12 +256,11 @@ Page({
       this.setData({
         difficulty: selected.value,
         difficultyIndex: safeIndex,
-        difficultyLabel: selected.label,
         largeText: Boolean(settings.largeText),
         bigButtons: Boolean(settings.bigButtons),
         highContrast: Boolean(settings.highContrast)
       });
-    } catch (error) {
+    } catch (_error) {
       // ignore bad cache
     }
   },
@@ -222,6 +269,14 @@ Page({
     const cache = wx.getStorageSync(GAME_STATE_KEY);
     if (!cache) return;
     const result = this.game.restore(cache);
+    if (!result.ok) return;
+
+    const state = result.state || {};
+    const diffIndex = DIFFICULTY_OPTIONS.findIndex(item => item.value === state.difficulty);
+    this.setData({
+      difficulty: state.difficulty || this.data.difficulty,
+      difficultyIndex: diffIndex >= 0 ? diffIndex : this.data.difficultyIndex
+    });
     this.syncFromResult(result, '已恢复进度');
   }
 });
